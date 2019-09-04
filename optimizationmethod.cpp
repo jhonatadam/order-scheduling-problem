@@ -4,3 +4,8 @@ OptimizationMethod::OptimizationMethod()
 {
 
 }
+
+OptimizationMethod::~OptimizationMethod()
+{
+
+}

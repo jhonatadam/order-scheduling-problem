@@ -1,14 +1,17 @@
-#include <instance.h>
+#include <hillclimbing.h>
 
 
 int main()
 {
-    string instFolder = "../OrderSchedulingProblem/instances/";
-    string instName   = "01";
+    string instFolder = "../order-scheduling-problem/instances/small/";
+    string instName   = "t_0.2_0.2_0001";
 
-    Instance instance(instFolder + instName);
-
+    const Instance instance(instFolder + instName);
     cout << instance.toString() << endl;
+
+    HillClimbing hc(instance);
+
+    hc.run();
 
     return 0;
 }

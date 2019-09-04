@@ -1,16 +1,16 @@
 #ifndef SOLUTION_H
 #define SOLUTION_H
 
-#include <vector>
+#include <instance.h>
 
 class Solution
 {
-
+    const Instance &instance;
 
     std::vector<unsigned> scheduling;
 
 public:
-    Solution(size_t numberOfOrders);
+    Solution(const Instance &instance);
 
     // update functions
     // swap the orders at two given slots A and B
@@ -22,6 +22,8 @@ public:
     double objectiveFunc();
     // evaluation functions
     double evaluationFunc();
+
+    size_t getNumOfSlots() const;
 };
 
 #endif // SOLUTION_H

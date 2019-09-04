@@ -4,3 +4,8 @@ LocalSearch::LocalSearch()
 {
 
 }
+
+LocalSearch::~LocalSearch()
+{
+
+}
