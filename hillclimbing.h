@@ -6,15 +6,14 @@
 
 class HillClimbing : public OptimizationMethod
 {
-    Solution sol;
-
+    // local search
     LocalSearch *ls = nullptr;
 
 public:
     HillClimbing(const Instance &inst);
     ~HillClimbing() override;
 
-    bool run() override;
+    void _run() override;
 };
 
 #endif // HILLCLIMBING_H

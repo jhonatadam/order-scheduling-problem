@@ -19,9 +19,9 @@ public:
     void shift(size_t slot);
 
     // objective function
-    double objectiveFunc();
+    double objectiveFunc() const;
     // evaluation functions
-    double evaluationFunc();
+    double evaluationFunc() const;
 
     size_t getNumOfSlots() const;
 };

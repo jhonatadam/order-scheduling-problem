@@ -1,7 +1,8 @@
 #include "hillclimbing.h"
 
+
 HillClimbing::HillClimbing(const Instance &inst) :
-    sol(inst)
+    OptimizationMethod(inst)
 {
     ls = new SwapLS();
 }
@@ -12,9 +13,7 @@ HillClimbing::~HillClimbing()
         delete ls;
 }
 
-bool HillClimbing::run()
+void HillClimbing::_run()
 {
-    while(ls->firstImprovement(sol));
-    cout << sol.objectiveFunc() << endl;
-    return true;
+    while(ls->bestImprovement(solution));
 }

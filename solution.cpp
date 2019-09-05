@@ -15,7 +15,7 @@ void Solution::swap(size_t slotA, size_t slotB)
     scheduling[slotB] = aux;
 }
 
-double Solution::objectiveFunc()
+double Solution::objectiveFunc() const
 {
     // computing the lateness of each order
     vector<unsigned> ordLate(instance.numberOfOrders, 0);
