@@ -7,6 +7,12 @@ HillClimbing::HillClimbing(const Instance &inst) :
     ls = new SwapLS();
 }
 
+HillClimbing::HillClimbing(const Solution &solution):
+    OptimizationMethod(solution)
+{
+    ls = new SwapLS();
+}
+
 HillClimbing::~HillClimbing()
 {
     if (ls != nullptr)
@@ -15,5 +21,5 @@ HillClimbing::~HillClimbing()
 
 void HillClimbing::_run()
 {
-    while(ls->bestImprovement(solution));
+    while(ls->firstImprovement(solution));
 }

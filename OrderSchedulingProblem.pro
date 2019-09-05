@@ -8,6 +8,7 @@ SOURCES += main.cpp \
     instance.cpp \
     localsearch.cpp \
     optimizationmethod.cpp \
+    randommultistart.cpp \
     solution.cpp \
     swapls.cpp
 
@@ -16,6 +17,7 @@ HEADERS += \
     instance.h \
     localsearch.h \
     optimizationmethod.h \
+    randommultistart.h \
     solution.h \
     swapls.h
 

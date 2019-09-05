@@ -11,6 +11,7 @@ class HillClimbing : public OptimizationMethod
 
 public:
     HillClimbing(const Instance &inst);
+    HillClimbing(const Solution &solution);
     ~HillClimbing() override;
 
     void _run() override;

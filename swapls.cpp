@@ -15,6 +15,7 @@ bool SwapLS::firstImprovement(Solution &sol)
     double bestValue = sol.objectiveFunc();
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
         for (unsigned slotB = slotA+1; slotB < sol.getNumOfSlots(); slotB++) {
+
             sol.swap(slotA, slotB);
             double newValue = sol.objectiveFunc();
             if(newValue < bestValue)
@@ -22,6 +23,7 @@ bool SwapLS::firstImprovement(Solution &sol)
             sol.swap(slotA, slotB);
         }
     }
+
     return false;
 }
 
