@@ -12,15 +12,12 @@ SwapLS::~SwapLS()
 
 bool SwapLS::firstImprovement(Solution &sol)
 {
-    double bestValue = sol.objectiveFunc();
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
         for (unsigned slotB = slotA+1; slotB < sol.getNumOfSlots(); slotB++) {
-
-            sol.swap(slotA, slotB);
-            double newValue = sol.objectiveFunc();
-            if(newValue < bestValue)
+            if(sol.swapGain(slotA, slotB) < 0) {
+                sol.swap(slotA, slotB);
                 return true;
-            sol.swap(slotA, slotB);
+            }
         }
     }
 
@@ -30,19 +27,17 @@ bool SwapLS::firstImprovement(Solution &sol)
 bool SwapLS::bestImprovement(Solution &sol)
 {
     bool improved = false;
-    double bestValue = sol.objectiveFunc();
+    unsigned bestValue = sol.getValue();
     pair<unsigned, unsigned> bestSwap;
 
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
         for (unsigned slotB = slotA+1; slotB < sol.getNumOfSlots(); slotB++) {
-            sol.swap(slotA, slotB);
-            double newValue = sol.objectiveFunc();
+            unsigned newValue = unsigned(int(sol.getValue()) + sol.swapGain(slotA, slotB));
             if(newValue < bestValue) {
                 bestValue = newValue;
                 bestSwap = make_pair(slotA, slotB);
                 improved = true;
             }
-            sol.swap(slotA, slotB);
         }
     }
 

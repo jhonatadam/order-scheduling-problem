@@ -3,6 +3,7 @@
 
 #include <optimizationmethod.h>
 #include <swapls.h>
+#include <shiftls.h>
 
 class HillClimbing : public OptimizationMethod
 {

@@ -1,18 +1,27 @@
+#include <iteratedlocalsearch.h>
 #include <randommultistart.h>
-
 
 int main()
 {
+    // loading instance
     string instFolder = "../order-scheduling-problem/instances/big/";
-    string instName   = "bt_0.2_0.2_0001";
-
+    string instName   = "bt_0.8_0.8_0001";
     Instance instance(instFolder + instName);
 
-    RandomMultiStart rms(instance, 10);
+    Solution sol(instance);
 
-    rms.run();
+    // initializing optimization method
+    OptimizationMethod *om = new IteratedLocalSearch(instance, 30, 25);
 
-    cout << "Solution value: " << rms.getSolutionValue() << endl;
-    cout << "Elapsed time:   " << rms.getElapsedTime() << " seconds" << endl;
+    // running optimization method
+    om->run();
+
+    // showing resoults
+    cout << "Solution value: " << om->getSolutionValue() << endl;
+    cout << "Elapsed time:   " << om->getElapsedTime() << " seconds" << endl;
+
+    // cleaning memory
+    delete om;
+
     return 0;
 }

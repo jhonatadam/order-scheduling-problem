@@ -6,20 +6,24 @@ CONFIG -= qt
 SOURCES += main.cpp \
     hillclimbing.cpp \
     instance.cpp \
+    iteratedlocalsearch.cpp \
     localsearch.cpp \
     optimizationmethod.cpp \
     randommultistart.cpp \
     solution.cpp \
-    swapls.cpp
+    swapls.cpp \
+    shiftls.cpp
 
 HEADERS += \
     hillclimbing.h \
     instance.h \
+    iteratedlocalsearch.h \
     localsearch.h \
     optimizationmethod.h \
     randommultistart.h \
     solution.h \
-    swapls.h
+    swapls.h \
+    shiftls.h
 
 DISTFILES += \
     instances/upper_bounds_BIG.xlsx \

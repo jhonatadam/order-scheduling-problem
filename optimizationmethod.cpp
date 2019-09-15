@@ -33,9 +33,9 @@ Solution &OptimizationMethod::getSolution()
     return solution;
 }
 
-double OptimizationMethod::getSolutionValue() const
+double OptimizationMethod::getSolutionValue()
 {
-    return solution.objectiveFunc();
+    return solution.getValue();
 }
 
 double OptimizationMethod::getElapsedTime() const

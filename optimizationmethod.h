@@ -23,11 +23,12 @@ public:
 
     // getters
     Solution &getSolution();
-    double getSolutionValue() const;
+    double getSolutionValue();
     double getElapsedTime() const;
+
     // setters
-    // it's not working because instance reference
     void setSolution(const Solution &other);
+
 };
 
 #endif // OPTIMIZATIONMETHOD_H
