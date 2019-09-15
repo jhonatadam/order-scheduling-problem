@@ -1,6 +1,30 @@
 #include "solution.h"
 
 
+void Solution::_swap(size_t slotA, size_t slotB)
+{
+    unsigned aux = scheduling[slotA];
+    scheduling[slotA] = scheduling[slotB];
+    scheduling[slotB] = aux;
+}
+
+void Solution::_shift(size_t from, size_t to)
+{
+    unsigned order = scheduling[from];
+
+    if (from < to) {
+        for (size_t slot = from; slot < to; slot++) {
+            scheduling[slot] = scheduling[slot + 1];
+        }
+    } else if (to < from) {
+        for (size_t slot = from; slot > to; slot--) {
+            scheduling[slot] = scheduling[slot - 1];
+        }
+    }
+
+    scheduling[to] = order;
+}
+
 void Solution::updateValue(size_t begin, size_t end)
 {
     if (begin == end)
@@ -74,9 +98,7 @@ void Solution::swap(size_t slotA, size_t slotB)
     if (slotA == slotB)
         return;
 
-    unsigned aux = scheduling[slotA];
-    scheduling[slotA] = scheduling[slotB];
-    scheduling[slotB] = aux;
+    this->_swap(slotA, slotB);
 
     updateValue(min(slotA, slotB), max(slotA, slotB));
 }
@@ -86,15 +108,9 @@ int Solution::swapGain(size_t slotA, size_t slotB)
     if (slotA == slotB)
         return 0;
 
-    unsigned aux = scheduling[slotA];
-    scheduling[slotA] = scheduling[slotB];
-    scheduling[slotB] = aux;
-
+    this->_swap(slotA, slotB);
     int gain = valueGain(min(slotA, slotB), max(slotA, slotB));
-
-    aux = scheduling[slotA];
-    scheduling[slotA] = scheduling[slotB];
-    scheduling[slotB] = aux;
+    this->_swap(slotA, slotB);
 
     return gain;
 }
@@ -104,21 +120,21 @@ void Solution::shift(size_t from, size_t to)
     if (from == to)
         return;
 
-    unsigned order = scheduling[from];
-
-    if (from < to) {
-        for (size_t slot = from; slot < to; slot++) {
-            scheduling[slot] = scheduling[slot + 1];
-        }
-    } else if (to < from) {
-        for (size_t slot = from; slot > to; slot--) {
-            scheduling[slot] = scheduling[slot - 1];
-        }
-    }
-
-    scheduling[to] = order;
+    this->_shift(from, to);
 
     updateValue(min(from, to), max(from, to));
+}
+
+int Solution::shiftGain(size_t from, size_t to)
+{
+    if (from == to)
+        return 0;
+
+    this->_shift(from, to);
+    int gain = valueGain(min(from, to), max(from, to));
+    this->_shift(to, from);
+
+    return gain;
 }
 
 void Solution::shuffle()

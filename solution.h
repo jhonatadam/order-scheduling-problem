@@ -22,6 +22,10 @@ class Solution
     vector<unsigned> tardinessAcc;
     // true if solution value must be updated
     bool wasModified = false;
+    // swap orders in two given slots
+    void _swap(size_t slotA, size_t slotB);
+    // shift an order from a given slot to another one
+    void _shift(size_t from, size_t to);
     // update solution value
     void updateValue(size_t begin, size_t end);
     // value gain
@@ -37,6 +41,8 @@ public:
     int swapGain(size_t slotA, size_t slotB);
     // shift order of a given slot
     void shift(size_t from, size_t to);
+    // calculate shift gain
+    int shiftGain(size_t from, size_t to);
     // shuffle current scheduling
     void shuffle();
     // copy scheduling of other solution to the same instance

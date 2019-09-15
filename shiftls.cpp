@@ -20,6 +20,7 @@ bool ShiftLS::firstImprovement(Solution &sol)
             if ((slotB + 1) < sol.getNumOfSlots())
                 sol.swap(slotB, slotB + 1);
         }
+
         sol.shift(sol.getNumOfSlots() - 1, slotA);
     }
 

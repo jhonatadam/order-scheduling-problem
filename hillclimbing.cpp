@@ -11,8 +11,8 @@ HillClimbing::HillClimbing(const Instance &inst) :
 HillClimbing::HillClimbing(const Solution &solution):
     OptimizationMethod(solution)
 {
-    ls = new SwapLS();
-//    ls = new ShiftLS();
+//    ls = new SwapLS();
+    ls = new ShiftLS();
 }
 
 HillClimbing::~HillClimbing()

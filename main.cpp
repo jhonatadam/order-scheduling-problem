@@ -11,7 +11,7 @@ int main()
     Solution sol(instance);
 
     // initializing optimization method
-    OptimizationMethod *om = new IteratedLocalSearch(instance, 30, 25);
+    OptimizationMethod *om = new HillClimbing(instance);
 
     // running optimization method
     om->run();
