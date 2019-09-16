@@ -12,7 +12,9 @@ SOURCES += main.cpp \
     randommultistart.cpp \
     solution.cpp \
     swapls.cpp \
-    shiftls.cpp
+    shiftls.cpp \
+    variableneighborhooddescendant.cpp \
+    variableneighborhoodsearch.cpp
 
 HEADERS += \
     hillclimbing.h \
@@ -23,7 +25,9 @@ HEADERS += \
     randommultistart.h \
     solution.h \
     swapls.h \
-    shiftls.h
+    shiftls.h \
+    variableneighborhooddescendant.h \
+    variableneighborhoodsearch.h
 
 DISTFILES += \
     instances/upper_bounds_BIG.xlsx \

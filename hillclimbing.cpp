@@ -1,18 +1,16 @@
 #include "hillclimbing.h"
 
 
-HillClimbing::HillClimbing(const Instance &inst) :
+HillClimbing::HillClimbing(const Instance &inst, Neighborhood nbh) :
     OptimizationMethod(inst)
 {
-    ls = new SwapLS();
-//    ls = new ShiftLS();
+    this->setNeighborhood(nbh);
 }
 
-HillClimbing::HillClimbing(const Solution &solution):
+HillClimbing::HillClimbing(const Solution &solution, Neighborhood nbh):
     OptimizationMethod(solution)
 {
-//    ls = new SwapLS();
-    ls = new ShiftLS();
+    this->setNeighborhood(nbh);
 }
 
 HillClimbing::~HillClimbing()
@@ -24,4 +22,15 @@ HillClimbing::~HillClimbing()
 void HillClimbing::_run()
 {
     while(ls->bestImprovement(solution));
+}
+
+void HillClimbing::setNeighborhood(Neighborhood nbh)
+{
+    if (ls != nullptr)
+        delete ls;
+
+    if (nbh == Swap)
+        ls = new SwapLS();
+    else if (nbh == Shift)
+        ls = new ShiftLS();
 }

@@ -48,7 +48,9 @@ public:
     // copy scheduling of other solution to the same instance
     void copy(const Solution &other);
     // perturb solution by swapping random orders
-    void perturbBySwap(unsigned numberOfSwaps);
+    void perturbBySwap(size_t numberOfSwaps);
+    // perturb solution by shifting random orders
+    void perturbByShift(size_t numberOfShifts);
 
     // getters
     unsigned getValue();

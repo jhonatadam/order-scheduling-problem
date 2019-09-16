@@ -3,6 +3,8 @@
 
 #include <solution.h>
 
+enum Neighborhood {Swap, Shift};
+
 class LocalSearch
 {
 public:

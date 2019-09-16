@@ -157,7 +157,7 @@ void Solution::copy(const Solution &other)
     this->tardinessAcc.assign(other.tardinessAcc.begin(), other.tardinessAcc.end());
 }
 
-void Solution::perturbBySwap(unsigned numberOfSwaps)
+void Solution::perturbBySwap(size_t numberOfSwaps)
 {
     // random generator
     long seed = chrono::system_clock::now().time_since_epoch().count();
@@ -173,12 +173,35 @@ void Solution::perturbBySwap(unsigned numberOfSwaps)
         size_t slotB =  randDistribution(randGenerator); //x + Utils.rd.nextInt(2 * W) - W;
 
         // swap
-        unsigned aux = scheduling[slotA];
-        scheduling[slotA] = scheduling[slotB];
-        scheduling[slotB] = aux;
+        this->_swap(slotA, slotB);
 
         minSlot = min(minSlot, min(slotA, slotB));
         maxSlot = max(maxSlot, max(slotA, slotB));
+    }
+
+    updateValue(minSlot, maxSlot);
+}
+
+void Solution::perturbByShift(size_t numberOfShifts)
+{
+    // random generator
+    long seed = chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine randGenerator(seed);
+    // uniform distribution between 0 and swapsPerPerturb
+    std::uniform_int_distribution<size_t> randDistribution(0, instance.numberOfOrders - 1);
+
+    size_t minSlot = instance.numberOfOrders - 1;
+    size_t maxSlot = 0;
+
+    for (unsigned i = 0; i < numberOfShifts; i++) {
+        size_t from =  randDistribution(randGenerator);
+        size_t to   = randDistribution(randGenerator);
+
+        // swap
+        this->_shift(from, to);
+
+        minSlot = min(minSlot, min(from, to));
+        maxSlot = max(maxSlot, max(from, to));
     }
 
     updateValue(minSlot, maxSlot);

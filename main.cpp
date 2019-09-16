@@ -1,5 +1,6 @@
 #include <iteratedlocalsearch.h>
 #include <randommultistart.h>
+#include <variableneighborhoodsearch.h>
 
 int main()
 {
@@ -8,10 +9,14 @@ int main()
     string instName   = "bt_0.8_0.8_0001";
     Instance instance(instFolder + instName);
 
-    Solution sol(instance);
+    vector<tuple<Neighborhood, size_t, size_t>> nbhs;
+    nbhs.push_back(make_tuple(Swap, 10, 10));
+    nbhs.push_back(make_tuple(Shift, 10, 10));
+    nbhs.push_back(make_tuple(Swap, 25, 5));
+    nbhs.push_back(make_tuple(Shift, 25, 5));
 
     // initializing optimization method
-    OptimizationMethod *om = new HillClimbing(instance);
+    OptimizationMethod *om = new VariableNeighborhoodSearch(instance, 100, nbhs);
 
     // running optimization method
     om->run();

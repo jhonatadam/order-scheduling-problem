@@ -11,11 +11,13 @@ class HillClimbing : public OptimizationMethod
     LocalSearch *ls = nullptr;
 
 public:
-    HillClimbing(const Instance &inst);
-    HillClimbing(const Solution &solution);
+    HillClimbing(const Instance &inst, Neighborhood nbh = Swap);
+    HillClimbing(const Solution &solution, Neighborhood nbh = Swap);
     ~HillClimbing() override;
 
     void _run() override;
+
+    void setNeighborhood(Neighborhood nbh);
 };
 
 #endif // HILLCLIMBING_H
