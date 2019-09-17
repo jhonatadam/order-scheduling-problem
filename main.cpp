@@ -1,12 +1,14 @@
 #include <iteratedlocalsearch.h>
 #include <randommultistart.h>
 #include <variableneighborhoodsearch.h>
+#include <minduedateheuristic.h>
+#include <lateronfirst.h>
 
 int main()
 {
     // loading instance
     string instFolder = "../order-scheduling-problem/instances/big/";
-    string instName   = "bt_0.8_0.8_0001";
+    string instName   = "bt_0.8_0.8_0002";
     Instance instance(instFolder + instName);
 
     vector<tuple<Neighborhood, size_t, size_t>> nbhs;
@@ -16,7 +18,7 @@ int main()
     nbhs.push_back(make_tuple(Shift, 25, 5));
 
     // initializing optimization method
-    OptimizationMethod *om = new VariableNeighborhoodSearch(instance, 100, nbhs);
+    OptimizationMethod *om = new VariableNeighborhoodSearch(instance, 30, nbhs);
 
     // running optimization method
     om->run();

@@ -8,10 +8,12 @@ ShiftLS::ShiftLS()
 bool ShiftLS::firstImprovement(Solution &sol)
 {
     unsigned bestValue = sol.getValue();
-    for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
-        sol.shift(slotA, 0);
+    unsigned firstLate = sol.getFirstLate();
 
-        for (unsigned slotB = 0; slotB < sol.getNumOfSlots(); slotB++) {
+    for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
+        sol.shift(slotA, firstLate);
+
+        for (unsigned slotB = firstLate; slotB < sol.getNumOfSlots(); slotB++) {
             unsigned newValue = sol.getValue();
 
             if(newValue < bestValue)
@@ -32,11 +34,12 @@ bool ShiftLS::bestImprovement(Solution &sol)
     bool improved = false;
     unsigned bestValue = sol.getValue();
     pair<unsigned, unsigned> bestShift;
+    unsigned firstLate = sol.getFirstLate();
 
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
-        sol.shift(slotA, 0);
+        sol.shift(slotA, firstLate);
 
-        for (unsigned slotB = 0; slotB < sol.getNumOfSlots(); slotB++) {
+        for (unsigned slotB = firstLate; slotB < sol.getNumOfSlots(); slotB++) {
             unsigned newValue = sol.getValue();
 
             if(newValue < bestValue) {

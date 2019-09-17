@@ -157,6 +157,12 @@ void Solution::copy(const Solution &other)
     this->tardinessAcc.assign(other.tardinessAcc.begin(), other.tardinessAcc.end());
 }
 
+void Solution::setScheduling(const vector<unsigned> &scheduling)
+{
+    this->scheduling.assign(scheduling.begin(), scheduling.end());
+    updateValue(0, instance.numberOfOrders - 1);
+}
+
 void Solution::perturbBySwap(size_t numberOfSwaps)
 {
     // random generator
@@ -220,5 +226,29 @@ size_t Solution::getNumOfSlots() const
 const Instance &Solution::getInstance() const
 {
     return instance;
+}
+
+unsigned Solution::getOrder(size_t slot)
+{
+    return this->scheduling[slot];
+}
+
+unsigned Solution::getSlot(size_t order)
+{
+    for (unsigned slot = 0; slot < scheduling.size(); slot++) {
+        if (scheduling[slot] == order)
+            return slot;
+    }
+    return 0;
+}
+
+unsigned Solution::getFirstLate()
+{
+    for (unsigned slot = 0; slot < instance.numberOfOrders; slot++) {
+        if (tardinessAcc[slot] > 0) {
+            return slot;
+        }
+    }
+    return 0;
 }
 

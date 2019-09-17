@@ -7,7 +7,9 @@ SOURCES += main.cpp \
     hillclimbing.cpp \
     instance.cpp \
     iteratedlocalsearch.cpp \
+    lateronfirst.cpp \
     localsearch.cpp \
+    minduedateheuristic.cpp \
     optimizationmethod.cpp \
     randommultistart.cpp \
     solution.cpp \
@@ -20,7 +22,9 @@ HEADERS += \
     hillclimbing.h \
     instance.h \
     iteratedlocalsearch.h \
+    lateronfirst.h \
     localsearch.h \
+    minduedateheuristic.h \
     optimizationmethod.h \
     randommultistart.h \
     solution.h \

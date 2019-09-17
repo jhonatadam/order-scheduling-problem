@@ -47,6 +47,8 @@ public:
     void shuffle();
     // copy scheduling of other solution to the same instance
     void copy(const Solution &other);
+    // copy a given scheduling
+    void setScheduling(const vector<unsigned> &scheduling);
     // perturb solution by swapping random orders
     void perturbBySwap(size_t numberOfSwaps);
     // perturb solution by shifting random orders
@@ -57,6 +59,9 @@ public:
     double getEvaluation() const;
     size_t getNumOfSlots() const;
     const Instance &getInstance() const;
+    unsigned getOrder(size_t slot);
+    unsigned getSlot(size_t order);
+    unsigned getFirstLate();
 };
 
 #endif // SOLUTION_H
