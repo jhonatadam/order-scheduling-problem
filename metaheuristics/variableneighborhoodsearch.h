@@ -4,7 +4,7 @@
 #include <tuple>
 
 #include <optimizationmethod.h>
-#include <variableneighborhooddescendant.h>
+#include <metaheuristics/variableneighborhooddescendant.h>
 
 class VariableNeighborhoodSearch : public OptimizationMethod
 {

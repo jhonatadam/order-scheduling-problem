@@ -1,7 +1,7 @@
 #ifndef RANDOMMULTISTART_H
 #define RANDOMMULTISTART_H
 
-#include <hillclimbing.h>
+#include <metaheuristics/hillclimbing.h>
 
 class RandomMultiStart : public OptimizationMethod
 {

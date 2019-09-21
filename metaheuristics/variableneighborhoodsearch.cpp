@@ -1,10 +1,11 @@
-#include "variableneighborhoodsearch.h"
+#include "metaheuristics/variableneighborhoodsearch.h"
 
 VariableNeighborhoodSearch::VariableNeighborhoodSearch(
         const Instance &inst, const unsigned maxIt,
         vector<tuple<Neighborhood, size_t, size_t>> &nbhs) :
     OptimizationMethod(inst), maxIt(maxIt)
 {
+    this->name = "Variable Neighborhood Search";
     this->nbhs.assign(nbhs.begin(), nbhs.end());
 }
 

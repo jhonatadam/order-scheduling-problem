@@ -1,7 +1,7 @@
 #ifndef SHIFTLS_H
 #define SHIFTLS_H
 
-#include <localsearch.h>
+#include <localsearchs/localsearch.h>
 
 class ShiftLS : public LocalSearch
 {

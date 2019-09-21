@@ -1,6 +1,11 @@
 #include "optimizationmethod.h"
 
 
+string OptimizationMethod::getName() const
+{
+    return name;
+}
+
 OptimizationMethod::OptimizationMethod(const Instance &inst) :
     solution(inst)
 {

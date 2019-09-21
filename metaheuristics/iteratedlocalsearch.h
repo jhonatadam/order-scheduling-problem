@@ -1,7 +1,7 @@
 #ifndef ITERATEDLOCALSEARCH_H
 #define ITERATEDLOCALSEARCH_H
 
-#include <hillclimbing.h>
+#include <metaheuristics/hillclimbing.h>
 
 class IteratedLocalSearch : public OptimizationMethod
 {

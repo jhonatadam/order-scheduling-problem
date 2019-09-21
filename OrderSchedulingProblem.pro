@@ -4,34 +4,36 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    hillclimbing.cpp \
+    benchmark.cpp \
+    metaheuristics/hillclimbing.cpp \
     instance.cpp \
-    iteratedlocalsearch.cpp \
-    lateronfirst.cpp \
-    localsearch.cpp \
-    minduedateheuristic.cpp \
+    metaheuristics/iteratedlocalsearch.cpp \
+    heuristics/lateronfirst.cpp \
+    localsearchs/localsearch.cpp \
+    heuristics/minduedateheuristic.cpp \
     optimizationmethod.cpp \
-    randommultistart.cpp \
+    metaheuristics/randommultistart.cpp \
     solution.cpp \
-    swapls.cpp \
-    shiftls.cpp \
-    variableneighborhooddescendant.cpp \
-    variableneighborhoodsearch.cpp
+    localsearchs/swapls.cpp \
+    localsearchs/shiftls.cpp \
+    metaheuristics/variableneighborhooddescendant.cpp \
+    metaheuristics/variableneighborhoodsearch.cpp
 
 HEADERS += \
-    hillclimbing.h \
+    benchmark.h \
+    metaheuristics/hillclimbing.h \
     instance.h \
-    iteratedlocalsearch.h \
-    lateronfirst.h \
-    localsearch.h \
-    minduedateheuristic.h \
+    metaheuristics/iteratedlocalsearch.h \
+    heuristics/lateronfirst.h \
+    localsearchs/localsearch.h \
+    heuristics/minduedateheuristic.h \
     optimizationmethod.h \
-    randommultistart.h \
+    metaheuristics/randommultistart.h \
     solution.h \
-    swapls.h \
-    shiftls.h \
-    variableneighborhooddescendant.h \
-    variableneighborhoodsearch.h
+    localsearchs/swapls.h \
+    localsearchs/shiftls.h \
+    metaheuristics/variableneighborhooddescendant.h \
+    metaheuristics/variableneighborhoodsearch.h
 
 DISTFILES += \
     instances/upper_bounds_BIG.xlsx \

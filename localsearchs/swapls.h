@@ -1,7 +1,7 @@
 #ifndef SWAPLS_H
 #define SWAPLS_H
 
-#include <localsearch.h>
+#include <localsearchs/localsearch.h>
 
 class SwapLS : public LocalSearch
 {

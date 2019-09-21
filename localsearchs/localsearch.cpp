@@ -1,4 +1,4 @@
-#include "localsearch.h"
+#include "localsearchs/localsearch.h"
 
 LocalSearch::LocalSearch()
 {

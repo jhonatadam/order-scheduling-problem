@@ -1,10 +1,10 @@
-#include "minduedateheuristic.h"
+#include "heuristics/minduedateheuristic.h"
 
 
 MinDueDateHeuristic::MinDueDateHeuristic(const Instance &inst) :
     OptimizationMethod(inst)
 {
-
+    this->name = "Min Due Date";
 }
 
 void MinDueDateHeuristic::_run()

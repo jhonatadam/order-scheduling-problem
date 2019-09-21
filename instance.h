@@ -9,6 +9,8 @@ using namespace std;
 
 struct Instance
 {
+    // instance name
+    string name;
     // number of machines
     size_t numberOfMachines;
     // number of orders
@@ -18,7 +20,7 @@ struct Instance
     // due dates of orders
     vector<unsigned> dueDates;
 
-    Instance(const string &fileName);
+    Instance(const string &path, const string &name);
 
     string toString() const;
 };

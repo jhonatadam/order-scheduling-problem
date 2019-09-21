@@ -2,8 +2,8 @@
 #define HILLCLIMBING_H
 
 #include <optimizationmethod.h>
-#include <swapls.h>
-#include <shiftls.h>
+#include <localsearchs/swapls.h>
+#include <localsearchs/shiftls.h>
 
 class HillClimbing : public OptimizationMethod
 {

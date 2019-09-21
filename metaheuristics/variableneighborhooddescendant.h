@@ -2,8 +2,8 @@
 #define VARIABLENEIGHBORHOODDESCENDANT_H
 
 #include <optimizationmethod.h>
-#include <swapls.h>
-#include <shiftls.h>
+#include <localsearchs/swapls.h>
+#include <localsearchs/shiftls.h>
 
 class VariableNeighborhoodDescendant : public OptimizationMethod
 {

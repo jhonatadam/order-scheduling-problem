@@ -1,8 +1,9 @@
-#include "variableneighborhooddescendant.h"
+#include "metaheuristics/variableneighborhooddescendant.h"
 
 VariableNeighborhoodDescendant::VariableNeighborhoodDescendant(const Instance &inst) :
     OptimizationMethod(inst)
 {
+    this->name = "Variable Neighborhood Descendant";
     lss.push_back(new SwapLS());
     lss.push_back(new ShiftLS());
 }

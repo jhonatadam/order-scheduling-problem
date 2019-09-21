@@ -1,9 +1,9 @@
-#include "lateronfirst.h"
+#include "heuristics/lateronfirst.h"
 
 LaterOnFirst::LaterOnFirst(const Instance &inst) :
     OptimizationMethod(inst)
 {
-
+    this->name = "Later on First";
 }
 
 void LaterOnFirst::_run()

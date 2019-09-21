@@ -6,6 +6,8 @@
 class OptimizationMethod
 {
 protected:
+    // method name
+    string name;
     // solution
     Solution solution;
     // enlapsed time in seconds
@@ -25,10 +27,10 @@ public:
     Solution &getSolution();
     double getSolutionValue();
     double getElapsedTime() const;
+    string getName() const;
 
     // setters
     void setSolution(const Solution &other);
-
 };
 
 #endif // OPTIMIZATIONMETHOD_H

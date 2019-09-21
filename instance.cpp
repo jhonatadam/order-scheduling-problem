@@ -1,13 +1,14 @@
 #include <instance.h>
 
 
-Instance::Instance(const string &fileName)
+Instance::Instance(const string &path, const string &name) :
+    name(name)
 {
-    ifstream ifs(fileName);
+    ifstream ifs(path + name);
     
     if (!ifs.is_open()) {
         cerr << "Erro: não foi possível abrir o arquivo \"" +
-                fileName + "\"" << endl;
+                path + "\"" << endl;
         exit(EXIT_FAILURE);
     }
 

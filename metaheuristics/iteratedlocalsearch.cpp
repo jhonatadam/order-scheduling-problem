@@ -1,4 +1,4 @@
-#include "iteratedlocalsearch.h"
+#include "metaheuristics/iteratedlocalsearch.h"
 
 
 IteratedLocalSearch::IteratedLocalSearch(const Instance &inst,
@@ -7,7 +7,7 @@ IteratedLocalSearch::IteratedLocalSearch(const Instance &inst,
     OptimizationMethod(inst), numberOfIterations(numberOfIterations),
     swapsPerPerturb(swapsPerPerturb)
 {
-
+    this->name = "Iterated Local Search";
 }
 
 void IteratedLocalSearch::_run()
