@@ -1,9 +1,9 @@
 #include "metaheuristics/iteratedlocalsearch.h"
 
 
-IteratedLocalSearch::IteratedLocalSearch(const Instance &inst,
-                                         unsigned numberOfIterations,
-                                         unsigned swapsPerPerturb) :
+IteratedLocalSearch::IteratedLocalSearch(unsigned numberOfIterations,
+                                         unsigned swapsPerPerturb,
+                                         const Instance *inst) :
     OptimizationMethod(inst), numberOfIterations(numberOfIterations),
     swapsPerPerturb(swapsPerPerturb)
 {

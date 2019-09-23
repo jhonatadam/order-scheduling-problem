@@ -11,8 +11,8 @@ class HillClimbing : public OptimizationMethod
     LocalSearch *ls = nullptr;
 
 public:
-    HillClimbing(const Instance &inst, Neighborhood nbh = Swap);
-    HillClimbing(const Solution &solution, Neighborhood nbh = Swap);
+    HillClimbing(const Instance *inst = nullptr, Neighborhood nbh = Swap);
+    HillClimbing(Solution &solution, Neighborhood nbh = Swap);
     ~HillClimbing() override;
 
     void _run() override;

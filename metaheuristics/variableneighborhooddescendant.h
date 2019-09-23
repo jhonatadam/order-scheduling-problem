@@ -10,7 +10,7 @@ class VariableNeighborhoodDescendant : public OptimizationMethod
     vector<LocalSearch*> lss;
 
 public:
-    VariableNeighborhoodDescendant(const Instance &inst);
+    VariableNeighborhoodDescendant(const Instance *inst = nullptr);
     ~VariableNeighborhoodDescendant() override;
 
     void _run() override;

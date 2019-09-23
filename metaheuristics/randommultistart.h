@@ -7,7 +7,8 @@ class RandomMultiStart : public OptimizationMethod
 {
     unsigned numberOfIterations;
 public:
-    RandomMultiStart(const Instance &inst, const unsigned numberOfIterations);
+    RandomMultiStart(const unsigned numberOfIterations,
+                     const Instance *inst = nullptr);
 
     void _run() override;
 };

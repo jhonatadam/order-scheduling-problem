@@ -4,6 +4,8 @@
 #include <heuristics/minduedateheuristic.h>
 #include <heuristics/lateronfirst.h>
 
+#include <benchmark.h>
+
 int main()
 {
     // loading instance
@@ -17,8 +19,15 @@ int main()
     nbhs.push_back(make_tuple(Swap, 25, 5));
     nbhs.push_back(make_tuple(Shift, 25, 5));
 
+    vector<OptimizationMethod *> oms;
+    oms.push_back(new MinDueDateHeuristic);
+    oms.push_back(new LaterOnFirst);
+
+
+    Benchmark bm("inst folder", oms);
+
     // initializing optimization method
-    OptimizationMethod *om = new MinDueDateHeuristic(instance);
+    OptimizationMethod *om = new MinDueDateHeuristic(&instance);
 
     // running optimization method
     om->run();
@@ -29,6 +38,9 @@ int main()
 
     // cleaning memory
     delete om;
+
+    for (OptimizationMethod * om : oms)
+        delete om;
 
     return 0;
 }

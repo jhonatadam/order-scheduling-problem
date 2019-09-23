@@ -6,7 +6,7 @@
 class MinDueDateHeuristic : public OptimizationMethod
 {
 public:
-    MinDueDateHeuristic(const Instance& inst);
+    MinDueDateHeuristic(const Instance *inst = nullptr);
 
     void _run() override;
 };

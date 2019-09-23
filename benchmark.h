@@ -9,6 +9,8 @@ struct Experiment {
     vector<unsigned> scheduling;
     unsigned schedulingValue;
     double execTime;
+
+    string toString();
 };
 
 class Benchmark
@@ -21,7 +23,11 @@ class Benchmark
     vector<Experiment>  experiments;
 
 public:
-    Benchmark();
+    Benchmark(const string& instancesFolder, const vector<OptimizationMethod*> &oms);
+
+    void loadInstances(const string& instancesFolder);
+
+    void run();
 };
 
 #endif // BENCHMARK_H

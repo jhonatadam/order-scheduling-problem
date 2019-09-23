@@ -14,8 +14,8 @@ protected:
     chrono::duration<double> elapsedTime = chrono::duration<double>::zero();
 
 public:
-    OptimizationMethod(const Instance &Inst);
-    OptimizationMethod(const Solution &solution);
+    OptimizationMethod(const Instance *Inst);
+    OptimizationMethod(Solution &solution);
     virtual ~OptimizationMethod() = 0;
 
     // executes _run and gets the elapsed time
@@ -31,6 +31,7 @@ public:
 
     // setters
     void setSolution(const Solution &other);
+    void setInstance(const Instance *inst);
 };
 
 #endif // OPTIMIZATIONMETHOD_H

@@ -6,13 +6,13 @@ string OptimizationMethod::getName() const
     return name;
 }
 
-OptimizationMethod::OptimizationMethod(const Instance &inst) :
+OptimizationMethod::OptimizationMethod(const Instance *inst) :
     solution(inst)
 {
     
 }
 
-OptimizationMethod::OptimizationMethod(const Solution &solution) :
+OptimizationMethod::OptimizationMethod(Solution &solution) :
     solution(solution.getInstance())
 {
     this->solution.copy(solution);
@@ -51,4 +51,9 @@ double OptimizationMethod::getElapsedTime() const
 void OptimizationMethod::setSolution(const Solution &other)
 {
     this->solution.copy(other);
+}
+
+void OptimizationMethod::setInstance(const Instance *inst)
+{
+    this->solution.setInstance(inst);
 }

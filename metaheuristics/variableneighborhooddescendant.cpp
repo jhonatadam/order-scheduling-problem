@@ -1,6 +1,6 @@
 #include "metaheuristics/variableneighborhooddescendant.h"
 
-VariableNeighborhoodDescendant::VariableNeighborhoodDescendant(const Instance &inst) :
+VariableNeighborhoodDescendant::VariableNeighborhoodDescendant(const Instance *inst) :
     OptimizationMethod(inst)
 {
     this->name = "Variable Neighborhood Descendant";

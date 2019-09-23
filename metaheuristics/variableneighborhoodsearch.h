@@ -14,9 +14,9 @@ class VariableNeighborhoodSearch : public OptimizationMethod
     unsigned maxIt = 0;
 
 public:
-    VariableNeighborhoodSearch(
-            const Instance &inst, const unsigned maxIt,
-            vector<tuple<Neighborhood, size_t, size_t>> &nbhs);
+    VariableNeighborhoodSearch(const unsigned maxIt,
+                               vector<tuple<Neighborhood, size_t, size_t>> &nbhs,
+                               const Instance *inst = nullptr);
 
     ~VariableNeighborhoodSearch() override;
 

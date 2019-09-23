@@ -1,14 +1,14 @@
 #include "metaheuristics/hillclimbing.h"
 
 
-HillClimbing::HillClimbing(const Instance &inst, Neighborhood nbh) :
+HillClimbing::HillClimbing(const Instance *inst, Neighborhood nbh) :
     OptimizationMethod(inst)
 {
     this->name = "Hill Climbing";
     this->setNeighborhood(nbh);
 }
 
-HillClimbing::HillClimbing(const Solution &solution, Neighborhood nbh):
+HillClimbing::HillClimbing(Solution &solution, Neighborhood nbh) :
     OptimizationMethod(solution)
 {
     this->setNeighborhood(nbh);

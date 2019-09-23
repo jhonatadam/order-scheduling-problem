@@ -11,9 +11,9 @@ class IteratedLocalSearch : public OptimizationMethod
     unsigned swapsPerPerturb = 0;
 
 public:
-    IteratedLocalSearch(const Instance &inst,
-                        unsigned numberOfIterations,
-                        unsigned swapsPerPerturb);
+    IteratedLocalSearch(unsigned numberOfIterations,
+                        unsigned swapsPerPerturb,
+                        const Instance *inst = nullptr);
 
 
     void _run() override;

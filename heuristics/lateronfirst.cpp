@@ -1,6 +1,7 @@
 #include "heuristics/lateronfirst.h"
 
-LaterOnFirst::LaterOnFirst(const Instance &inst) :
+
+LaterOnFirst::LaterOnFirst(const Instance *inst) :
     OptimizationMethod(inst)
 {
     this->name = "Later on First";
@@ -12,7 +13,7 @@ void LaterOnFirst::_run()
     for (unsigned slot = 0; slot < solution.getNumOfSlots(); slot++)
         scheduling[slot] = solution.getOrder(slot);
 
-    vector<unsigned> timeAcc(solution.getInstance().numberOfMachines, 0);
+    vector<unsigned> timeAcc(solution.getInstance()->numberOfMachines, 0);
 
     for (unsigned begin = 0; begin < solution.getNumOfSlots() - 1; begin++) {
 
@@ -24,12 +25,12 @@ void LaterOnFirst::_run()
             unsigned maxTime = 0;
             unsigned order = scheduling[slot];
 
-            for (unsigned mach = 0; mach < solution.getInstance().numberOfMachines; mach++) {
-                if ((solution.getInstance().orderMachine[order][mach] + timeAcc[mach]) > maxTime)
-                    maxTime = solution.getInstance().orderMachine[order][mach] + timeAcc[mach];
+            for (unsigned mach = 0; mach < solution.getInstance()->numberOfMachines; mach++) {
+                if ((solution.getInstance()->orderMachine[order][mach] + timeAcc[mach]) > maxTime)
+                    maxTime = solution.getInstance()->orderMachine[order][mach] + timeAcc[mach];
             }
 
-            int newLateness = int(maxTime) - int(solution.getInstance().dueDates[order]);
+            int newLateness = int(maxTime) - int(solution.getInstance()->dueDates[order]);
             if (newLateness > lateness) {
                 later = slot;
                 lateness = newLateness;
@@ -41,8 +42,8 @@ void LaterOnFirst::_run()
         scheduling[begin] = scheduling[later];
         scheduling[later] = aux;
 
-        for (unsigned mach = 0; mach < solution.getInstance().numberOfMachines; mach++) {
-            timeAcc[mach] += solution.getInstance().orderMachine[scheduling[begin]][mach];
+        for (unsigned mach = 0; mach < solution.getInstance()->numberOfMachines; mach++) {
+            timeAcc[mach] += solution.getInstance()->orderMachine[scheduling[begin]][mach];
         }
     }
 

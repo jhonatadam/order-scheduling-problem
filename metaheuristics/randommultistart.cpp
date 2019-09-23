@@ -1,7 +1,6 @@
 #include "metaheuristics/randommultistart.h"
 
-RandomMultiStart::RandomMultiStart(const Instance &inst,
-                                   const unsigned numberOfIterations) :
+RandomMultiStart::RandomMultiStart(const unsigned numberOfIterations, const Instance *inst) :
     OptimizationMethod(inst)
 {
     this->name = "Random Multistart";

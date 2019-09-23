@@ -10,7 +10,7 @@
 class Solution
 {
     // order scheduling problem instance
-    const Instance &instance;
+    const Instance *instance;
     // solution
     vector<unsigned> scheduling;
     // time accumulation by a each order in each
@@ -20,8 +20,6 @@ class Solution
     // the solution value is manteined in last
     // position of tardinessAcc vector
     vector<unsigned> tardinessAcc;
-    // true if solution value must be updated
-    bool wasModified = false;
     // swap orders in two given slots
     void _swap(size_t slotA, size_t slotB);
     // shift an order from a given slot to another one
@@ -32,7 +30,7 @@ class Solution
     int valueGain(size_t begin, size_t end);
 
 public:
-    Solution(const Instance &instance);
+    Solution(const Instance *instance);
 
     // modifiers
     // swap the orders at two given slots A and B
@@ -58,10 +56,14 @@ public:
     unsigned getValue();
     double getEvaluation() const;
     size_t getNumOfSlots() const;
-    const Instance &getInstance() const;
+    const Instance *getInstance() const;
     unsigned getOrder(size_t slot);
     unsigned getSlot(size_t order);
     unsigned getFirstLate();
+
+    // setters
+    void setInstance(const Instance *instance);
+    const vector<unsigned>& getScheduling();
 };
 
 #endif // SOLUTION_H
