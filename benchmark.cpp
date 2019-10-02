@@ -1,44 +1,93 @@
 #include "benchmark.h"
 
-Benchmark::Benchmark(const string &instancesFolder, const vector<OptimizationMethod *> &oms):
-    oms(oms)
+Benchmark::Benchmark(const string &instDir, const vector<OptimizationMethod *> &optMethods):
+    optMethods(optMethods)
 {
-    loadInstances(instancesFolder);
+    loadInstances(instDir);
 }
 
-void Benchmark::loadInstances(const string &instancesFolder)
+Benchmark::~Benchmark()
 {
-    instancesFolder.at(10);
-    // carregar instancias de uma dada pasta
+    this->clean();
+}
+
+void Benchmark::loadInstances(const string &instDir)
+{
+    DIR* dirp = opendir(instDir.c_str());
+    struct dirent * dp;
+
+    if (!dirp)
+        cerr << "O diretorio de instancias nao existe." << endl;
+
+    while ((dp = readdir(dirp)) != nullptr) {
+        if (dp->d_type != DT_DIR) {
+            instances.push_back(new Instance(instDir, dp->d_name));
+        }
+    }
+
+    closedir(dirp);
 }
 
 void Benchmark::run()
 {
-    for (OptimizationMethod * om : oms) {
-        for (Instance& inst : instances) {
+    // experiment index
+    size_t exp = 0;
+    // setting experiments vector
+    experiments.resize(instances.size() * optMethods.size());
+
+    // running experiments
+    for (Instance* inst : instances) {
+        for (OptimizationMethod * om : optMethods) {
+            // setting instance
+            om->setInstance(inst);
+
+            // running method
             om->run();
 
-            Experiment exp;
-            exp.methodName      =                om->getName();
-            exp.instance        =                    inst.name;
-            exp.schedulingValue = om->getSolution().getValue();
-            exp.execTime        =         om->getElapsedTime();
-            exp.scheduling.assign(om->getSolution().getScheduling().begin(),
-                                  om->getSolution().getScheduling().end());
+            // saving results
+            experiments[exp] = new Experiment(inst, om);
 
-            experiments.push_back(exp);
+            // diplaing results
+            cout << experiments[exp]->toString() << endl;
 
-            cout << exp.toString() << endl;
+            exp++;
         }
+        cout << float(exp)/experiments.size() * 100 << "%" << endl;
     }
+}
+
+void Benchmark::clean()
+{
+    for (Instance *inst : instances)
+        delete inst;
+
+    for (Experiment *exp : experiments)
+        delete exp;
+}
+
+Experiment::Experiment(Instance *inst, OptimizationMethod *optMethod)
+{
+    this->instName   =                         inst->name;
+    this->methodName =               optMethod->getName();
+    this->runtime    =        optMethod->getElapsedTime();
+    this->schedValue =      optMethod->getSolutionValue();
+    this->scheduling = new unsigned[inst->numberOfOrders];
+
+    for (unsigned i = 0; i < inst->numberOfOrders; i++)
+        this->scheduling[i] = optMethod->getSolution().getOrder(i);
+}
+
+Experiment::~Experiment()
+{
+    delete[] scheduling;
 }
 
 string Experiment::toString()
 {
-    string str = this->methodName + ", " +
-            this->instance + ", " +
-            to_string(this->schedulingValue) + ", " +
-            to_string(this->execTime);
+    string str = this->instName + ", " +
+            this->methodName + ", " +
+            to_string(this->runtime) + ", " +
+            to_string(this->schedValue);
 
     return str;
 }

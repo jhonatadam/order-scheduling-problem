@@ -22,7 +22,7 @@ HillClimbing::~HillClimbing()
 
 void HillClimbing::_run()
 {
-    while(ls->bestImprovement(solution));
+    while(ls->firstImprovement(solution));
 }
 
 void HillClimbing::setNeighborhood(Neighborhood nbh)

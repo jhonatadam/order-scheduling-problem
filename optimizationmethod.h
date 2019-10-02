@@ -25,7 +25,7 @@ public:
 
     // getters
     Solution &getSolution();
-    double getSolutionValue();
+    unsigned getSolutionValue();
     double getElapsedTime() const;
     string getName() const;
 

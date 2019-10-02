@@ -66,8 +66,10 @@ void Solution::updateValue(size_t begin, size_t end)
 
 int Solution::valueGain(size_t begin, size_t end)
 {
-    unsigned tempAcc = 0;
-    vector<unsigned> tempTimeAcc(instance->numberOfMachines, 0);
+    tempAcc = 0;
+    if (instance->numberOfMachines != tempTimeAcc.size())
+        tempTimeAcc.resize(instance->numberOfMachines);
+    fill(tempTimeAcc.begin(), tempTimeAcc.end(), 0);
 
     if (begin > 0) {
         tempAcc = tardinessAcc[begin - 1];
@@ -104,7 +106,7 @@ void Solution::swap(size_t slotA, size_t slotB)
 
 int Solution::swapGain(size_t slotA, size_t slotB)
 {
-    if (slotA == slotB)
+    if (tardinessAcc[slotA] == tardinessAcc[slotB])
         return 0;
 
     this->_swap(slotA, slotB);
@@ -116,7 +118,7 @@ int Solution::swapGain(size_t slotA, size_t slotB)
 
 void Solution::shift(size_t from, size_t to)
 {
-    if (from == to)
+    if (tardinessAcc[from] == tardinessAcc[to])
         return;
 
     this->_shift(from, to);
@@ -138,7 +140,7 @@ int Solution::shiftGain(size_t from, size_t to)
 
 void Solution::shuffle()
 {
-    long seed = std::chrono::system_clock::now().time_since_epoch().count();
+    long seed = 0; // std::chrono::system_clock::now().time_since_epoch().count();
     std::shuffle(scheduling.begin(), scheduling.end(), std::default_random_engine(seed));
 
     updateValue(0, instance->numberOfOrders - 1);
@@ -165,7 +167,7 @@ void Solution::setScheduling(const vector<unsigned> &scheduling)
 void Solution::perturbBySwap(size_t numberOfSwaps)
 {
     // random generator
-    long seed = chrono::system_clock::now().time_since_epoch().count();
+    long seed = 0; // chrono::system_clock::now().time_since_epoch().count();
     default_random_engine randGenerator(seed);
     // uniform distribution between 0 and swapsPerPerturb
     std::uniform_int_distribution<size_t> randDistribution(0, instance->numberOfOrders - 1);
@@ -190,7 +192,7 @@ void Solution::perturbBySwap(size_t numberOfSwaps)
 void Solution::perturbByShift(size_t numberOfShifts)
 {
     // random generator
-    long seed = chrono::system_clock::now().time_since_epoch().count();
+    long seed = 0; // chrono::system_clock::now().time_since_epoch().count();
     default_random_engine randGenerator(seed);
     // uniform distribution between 0 and swapsPerPerturb
     std::uniform_int_distribution<size_t> randDistribution(0, instance->numberOfOrders - 1);
@@ -212,14 +214,38 @@ void Solution::perturbByShift(size_t numberOfShifts)
     updateValue(minSlot, maxSlot);
 }
 
+bool Solution::sameTardAcc(size_t slotA, size_t slotB)
+{
+    return (tardinessAcc[slotA] == tardinessAcc[slotB]);
+}
+
+void Solution::randomize(size_t numOfCand)
+{
+    // random generator
+    long seed = 0; // chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine randGenerator(seed);
+
+
+    for (size_t slot = 0; slot < instance->numberOfOrders; slot++) {
+        uniform_int_distribution<size_t> randDistribution(slot,
+            min(slot + numOfCand - 1, instance->numberOfOrders - 1));
+
+        size_t next = randDistribution(randGenerator);
+        if (next != slot)
+            swap(scheduling[slot], scheduling[next]);
+    }
+
+    updateValue(0, instance->numberOfOrders - 1);
+}
+
 unsigned Solution::getValue()
 {
     return tardinessAcc.back();
 }
 
 size_t Solution::getNumOfSlots() const
-{
-    return this->scheduling.size();
+{   
+    return instance->numberOfOrders;
 }
 
 const Instance* Solution::getInstance() const
@@ -256,15 +282,22 @@ void Solution::setInstance(const Instance *instance)
     this->instance = instance;
 
     if (this->instance != nullptr) {
-        scheduling.resize(instance->numberOfOrders);
-        timeAcc.resize(instance->numberOfOrders, vector<unsigned>(instance->numberOfMachines));
-        tardinessAcc.resize(instance->numberOfOrders);
+
+        if (scheduling.size() != instance->numberOfOrders) {
+            scheduling.resize(instance->numberOfOrders);
+            tardinessAcc.resize(instance->numberOfOrders);
+            timeAcc.resize(instance->numberOfOrders);
+        }
+
+        if (timeAcc.back().size() != instance->numberOfMachines) {
+            for (vector<unsigned> &v : timeAcc)
+                v.resize(instance->numberOfMachines);
+        }
 
         // initializa a trivial solution
         for (unsigned slot = 0; slot < instance->numberOfOrders; slot++) {
             scheduling[slot] = slot;
         }
-
         updateValue(0, instance->numberOfOrders - 1);
     }
 }

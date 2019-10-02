@@ -12,18 +12,19 @@ SwapLS::~SwapLS()
 
 bool SwapLS::firstImprovement(Solution &sol)
 {
-    unsigned firstLate = sol.getFirstLate();
-
+    bool improv = false;
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots() - 1; slotA++) {
-        for (unsigned slotB = max(firstLate, slotA+1); slotB < sol.getNumOfSlots(); slotB++) {
+        for (unsigned slotB = sol.getNumOfSlots() - 1; !sol.sameTardAcc(slotA, slotB); slotB--) {
             if(sol.swapGain(slotA, slotB) < 0) {
                 sol.swap(slotA, slotB);
-                return true;
+//                cout << sol.getValue() << endl;
+//                return true;
+                improv = true;
             }
         }
     }
-
-    return false;
+    return improv;
+//    return false;
 }
 
 bool SwapLS::bestImprovement(Solution &sol)
@@ -31,10 +32,9 @@ bool SwapLS::bestImprovement(Solution &sol)
     bool improved = false;
     unsigned bestValue = sol.getValue();
     pair<unsigned, unsigned> bestSwap;
-    unsigned firstLate = sol.getFirstLate();
 
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots() - 1; slotA++) {
-        for (unsigned slotB = max(firstLate, slotA+1); slotB < sol.getNumOfSlots(); slotB++) {
+        for (unsigned slotB = sol.getNumOfSlots() - 1; !sol.sameTardAcc(slotA, slotB); slotB--) {
             unsigned newValue = unsigned(int(sol.getValue()) + sol.swapGain(slotA, slotB));
             if(newValue < bestValue) {
                 bestValue = newValue;
@@ -44,8 +44,11 @@ bool SwapLS::bestImprovement(Solution &sol)
         }
     }
 
-    if (improved)
+    if (improved) {
         sol.swap(bestSwap.first, bestSwap.second);
+        cout << sol.getValue() << endl;
+    }
+
 
     return improved;
 }

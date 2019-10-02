@@ -38,7 +38,7 @@ Solution &OptimizationMethod::getSolution()
     return solution;
 }
 
-double OptimizationMethod::getSolutionValue()
+unsigned OptimizationMethod::getSolutionValue()
 {
     return solution.getValue();
 }

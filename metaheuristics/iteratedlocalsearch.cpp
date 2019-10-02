@@ -19,13 +19,15 @@ void IteratedLocalSearch::_run()
     cout << string(12 - solVal.length(), ' ') + solVal + " |" << endl;
 
     // running method
-    HillClimbing hc(solution);
-    hc.getSolution().shuffle();
+//    HillClimbing hc(solution);
+    VariableNeighborhoodDescendant vnd(solution.getInstance());
+//    hc.getSolution().shuffle();
+//    vnd.getSolution().shuffle();
     for (unsigned i = 0; i < numberOfIterations; i++) {
-        hc.getSolution().perturbBySwap(swapsPerPerturb);
-        hc._run();
-        if (hc.getSolutionValue() < solution.getValue()) {
-            solution.copy(hc.getSolution());
+        vnd.getSolution().perturbBySwap(swapsPerPerturb);
+        vnd._run();
+        if (vnd.getSolutionValue() < solution.getValue()) {
+            solution.copy(vnd.getSolution());
 
             // reporting
             solVal = to_string(solution.getValue());

@@ -7,8 +7,9 @@
 
 class LaterOnFirst : public OptimizationMethod
 {
+    unsigned numOfCand;
 public:
-    LaterOnFirst(const Instance *inst = nullptr);
+    LaterOnFirst(unsigned numOfCand = 1, const Instance *inst = nullptr);
 
     void _run() override;
 };

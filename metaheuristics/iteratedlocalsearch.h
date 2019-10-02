@@ -2,6 +2,7 @@
 #define ITERATEDLOCALSEARCH_H
 
 #include <metaheuristics/hillclimbing.h>
+#include <metaheuristics/variableneighborhooddescendant.h>
 
 class IteratedLocalSearch : public OptimizationMethod
 {

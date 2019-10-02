@@ -20,6 +20,10 @@ class Solution
     // the solution value is manteined in last
     // position of tardinessAcc vector
     vector<unsigned> tardinessAcc;
+    // used in function valueGain
+    unsigned tempAcc = 0;
+    vector<unsigned> tempTimeAcc;
+
     // swap orders in two given slots
     void _swap(size_t slotA, size_t slotB);
     // shift an order from a given slot to another one
@@ -51,6 +55,10 @@ public:
     void perturbBySwap(size_t numberOfSwaps);
     // perturb solution by shifting random orders
     void perturbByShift(size_t numberOfShifts);
+    // TRUE  if two given slots have same tardiness accumulated
+    bool sameTardAcc(size_t slotA, size_t slotB);
+    // randomize
+    void randomize(size_t numOfCand);
 
     // getters
     unsigned getValue();

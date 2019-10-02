@@ -19,7 +19,7 @@ void VariableNeighborhoodDescendant::_run()
     // current neighborhood
     unsigned nbh = 0;
     while (nbh < lss.size()) {
-        if (lss[nbh]->bestImprovement(solution)) {
+        if (lss[nbh]->firstImprovement(solution)) {
             nbh = 0;
         } else {
             nbh++;
