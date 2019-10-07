@@ -5,7 +5,7 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     benchmark.cpp \
-    grasp.cpp \
+    metaheuristics/grasp.cpp \
     metaheuristics/hillclimbing.cpp \
     instance.cpp \
     metaheuristics/iteratedlocalsearch.cpp \
@@ -22,7 +22,7 @@ SOURCES += main.cpp \
 
 HEADERS += \
     benchmark.h \
-    grasp.h \
+    metaheuristics/grasp.h \
     metaheuristics/hillclimbing.h \
     instance.h \
     metaheuristics/iteratedlocalsearch.h \

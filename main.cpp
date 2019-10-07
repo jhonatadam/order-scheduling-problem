@@ -28,7 +28,7 @@ int main()
 //    optMethods.push_back(new IteratedLocalSearch(1, 20));
 //    optMethods.push_back(new RandomMultiStart(5));
 
-    OptimizationMethod *om = new VariableNeighborhoodDescendant(&instance);
+    OptimizationMethod *om = new GRASP(10, 50, &instance);
     om->run();
 
     cout << "Value: " << om->getSolutionValue() << endl;

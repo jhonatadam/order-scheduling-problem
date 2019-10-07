@@ -14,7 +14,7 @@ GRASP::~GRASP()
 
 void GRASP::_run()
 {
-    VariableNeighborhoodDescendant vnd;
+    VariableNeighborhoodDescendant vnd(solution.getInstance());
     heuristic->setInstance(solution.getInstance());
 
     for (size_t ite = 0; ite < numOfIte; ite++) {
@@ -22,10 +22,10 @@ void GRASP::_run()
 
         vnd.setSolution(heuristic->getSolution());
         vnd.run();
-        cout << "aqui" << endl;
+
         if (vnd.getSolutionValue() < this->solution.getValue()) {
             this->solution.copy(vnd.getSolution());
-            cout << this->solution.getValue() << endl;
+            cout << this->solution.getValue() << " " << ite << endl;
         }
     }
 
