@@ -30,6 +30,31 @@ bool ShiftLS::firstImprovement(Solution &sol)
     return false;
 }
 
+bool ShiftLS::firstImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
+{
+    unsigned bestValue = sol.getValue();
+    unsigned firstLate = sol.getFirstLate();
+
+    for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
+        unsigned begin = (slotA < firstLate ? firstLate : 0);
+        sol.shift(slotA, begin);
+
+        for (unsigned slotB = begin; slotB < sol.getNumOfSlots(); slotB++) {
+            unsigned newValue = sol.getValue();
+
+            if(newValue < bestValue)
+                return true;
+
+            if ((slotB + 1) < sol.getNumOfSlots())
+                sol.swap(slotB, slotB + 1);
+        }
+
+        sol.shift(sol.getNumOfSlots() - 1, slotA);
+    }
+
+    return false;
+}
+
 bool ShiftLS::bestImprovement(Solution &sol)
 {
     bool improved = false;
@@ -60,4 +85,9 @@ bool ShiftLS::bestImprovement(Solution &sol)
         sol.shift(bestShift.first, bestShift.second);
 
     return improved;
+}
+
+bool ShiftLS::bestImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
+{
+    return true;
 }

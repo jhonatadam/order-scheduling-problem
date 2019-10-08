@@ -14,17 +14,36 @@ bool SwapLS::firstImprovement(Solution &sol)
 {
     bool improv = false;
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots() - 1; slotA++) {
-        for (unsigned slotB = sol.getNumOfSlots() - 1; !sol.sameTardAcc(slotA, slotB); slotB--) {
+        for (unsigned slotB = unsigned(sol.getNumOfSlots() - 1); !sol.sameTardAcc(slotA, slotB); slotB--) {
             if(sol.swapGain(slotA, slotB) < 0) {
                 sol.swap(slotA, slotB);
-//                cout << sol.getValue() << endl;
-//                return true;
                 improv = true;
             }
         }
     }
     return improv;
-//    return false;
+}
+
+bool SwapLS::firstImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
+{
+    bool improv = false;
+    for (unsigned slotA = 0; slotA < sol.getNumOfSlots() - 1; slotA++) {
+        for (unsigned slotB = unsigned(sol.getNumOfSlots() - 1); !sol.sameTardAcc(slotA, slotB); slotB--) {
+            int swapGain = sol.swapGain(slotA, slotB);
+            // order penalty of slot a be in slot b and vice-versa
+            swapGain += int(penalities[sol.getOrder(slotA)][slotB] + penalities[sol.getOrder(slotB)][slotA]);
+            // removing penalities before the swap
+            swapGain -= int(penalities[sol.getOrder(slotA)][slotA] + penalities[sol.getOrder(slotB)][slotB]);
+
+            if(swapGain < 0) {
+                sol.swap(slotA, slotB);
+                improv = true;
+            }
+        }
+    }
+    return improv;
+
+
 }
 
 bool SwapLS::bestImprovement(Solution &sol)
@@ -34,7 +53,7 @@ bool SwapLS::bestImprovement(Solution &sol)
     pair<unsigned, unsigned> bestSwap;
 
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots() - 1; slotA++) {
-        for (unsigned slotB = sol.getNumOfSlots() - 1; !sol.sameTardAcc(slotA, slotB); slotB--) {
+        for (unsigned slotB = unsigned(sol.getNumOfSlots() - 1); !sol.sameTardAcc(slotA, slotB); slotB--) {
             unsigned newValue = unsigned(int(sol.getValue()) + sol.swapGain(slotA, slotB));
             if(newValue < bestValue) {
                 bestValue = newValue;
@@ -51,4 +70,9 @@ bool SwapLS::bestImprovement(Solution &sol)
 
 
     return improved;
+}
+
+bool SwapLS::bestImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
+{
+
 }

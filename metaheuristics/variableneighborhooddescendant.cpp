@@ -5,7 +5,7 @@ VariableNeighborhoodDescendant::VariableNeighborhoodDescendant(const Instance *i
 {
     this->name = "Variable Neighborhood Descendant";
     lss.push_back(new SwapLS());
-    lss.push_back(new ShiftLS());
+//    lss.push_back(new ShiftLS());
 }
 
 VariableNeighborhoodDescendant::~VariableNeighborhoodDescendant()

@@ -1,16 +1,19 @@
 #include <metaheuristics/iteratedlocalsearch.h>
 #include <metaheuristics/randommultistart.h>
 #include <metaheuristics/variableneighborhoodsearch.h>
-#include <grasp.h>
+#include <metaheuristics/guidedlocalsearch.h>
+#include <metaheuristics/grasp.h>
 
 #include <benchmark.h>
+
+/// terminar implementação das buscas locais com penalidades
 
 int main()
 {
 
     // loading instance
     string instFolder = "../order-scheduling-problem/instances/big/";
-    string instName   = "bt_0.8_0.8_0160";
+    string instName   = "bt_0.2_0.8_0160";
     Instance instance(instFolder, instName);
 
     vector<tuple<Neighborhood, size_t, size_t>> neighborhoods;
@@ -28,7 +31,7 @@ int main()
 //    optMethods.push_back(new IteratedLocalSearch(1, 20));
 //    optMethods.push_back(new RandomMultiStart(5));
 
-    OptimizationMethod *om = new GRASP(10, 50, &instance);
+    OptimizationMethod *om = new GuidedLocalSearch(10, &instance);
     om->run();
 
     cout << "Value: " << om->getSolutionValue() << endl;

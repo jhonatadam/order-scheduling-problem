@@ -7,6 +7,7 @@
 
 class VariableNeighborhoodDescendant : public OptimizationMethod
 {
+protected:
     vector<LocalSearch*> lss;
 
 public:

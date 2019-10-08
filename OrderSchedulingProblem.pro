@@ -6,12 +6,14 @@ CONFIG -= qt
 SOURCES += main.cpp \
     benchmark.cpp \
     metaheuristics/grasp.cpp \
+    metaheuristics/guidedlocalsearch.cpp \
     metaheuristics/hillclimbing.cpp \
     instance.cpp \
     metaheuristics/iteratedlocalsearch.cpp \
     heuristics/lateronfirst.cpp \
     localsearchs/localsearch.cpp \
     heuristics/minduedateheuristic.cpp \
+    metaheuristics/penalizedvnd.cpp \
     optimizationmethod.cpp \
     metaheuristics/randommultistart.cpp \
     solution.cpp \
@@ -23,12 +25,14 @@ SOURCES += main.cpp \
 HEADERS += \
     benchmark.h \
     metaheuristics/grasp.h \
+    metaheuristics/guidedlocalsearch.h \
     metaheuristics/hillclimbing.h \
     instance.h \
     metaheuristics/iteratedlocalsearch.h \
     heuristics/lateronfirst.h \
     localsearchs/localsearch.h \
     heuristics/minduedateheuristic.h \
+    metaheuristics/penalizedvnd.h \
     optimizationmethod.h \
     metaheuristics/randommultistart.h \
     solution.h \

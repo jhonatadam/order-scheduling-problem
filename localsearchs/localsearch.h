@@ -12,7 +12,9 @@ public:
     virtual ~LocalSearch() = 0;
 
     virtual bool firstImprovement(Solution &sol) = 0;
+    virtual bool firstImprovement(Solution &sol, vector<vector<unsigned>> &penalities) = 0;
     virtual bool bestImprovement(Solution &sol) = 0;
+    virtual bool bestImprovement(Solution &sol, vector<vector<unsigned>> &penalities) = 0;
 };
 
 #endif // LOCALSEARCH_H
