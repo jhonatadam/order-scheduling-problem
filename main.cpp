@@ -3,6 +3,11 @@
 #include <metaheuristics/variableneighborhoodsearch.h>
 #include <metaheuristics/guidedlocalsearch.h>
 #include <metaheuristics/grasp.h>
+#include <metaheuristics/simulatedannealing.h>
+#include <metaheuristics/tabusearch.h>
+#include <metaheuristics/dea.h>
+#include <metaheuristics/geneticalgorithm.h>
+#include <metaheuristics/scattersearch.h>
 
 #include <benchmark.h>
 
@@ -13,7 +18,7 @@ int main()
 
     // loading instance
     string instFolder = "../order-scheduling-problem/instances/big/";
-    string instName   = "bt_0.2_0.8_0160";
+    string instName   = "bt_0.8_0.8_0160";
     Instance instance(instFolder, instName);
 
     vector<tuple<Neighborhood, size_t, size_t>> neighborhoods;
@@ -31,12 +36,11 @@ int main()
 //    optMethods.push_back(new IteratedLocalSearch(1, 20));
 //    optMethods.push_back(new RandomMultiStart(5));
 
-    OptimizationMethod *om = new GuidedLocalSearch(10, &instance);
+    OptimizationMethod *om = new RandomMultiStart(10, &instance);
     om->run();
 
     cout << "Value: " << om->getSolutionValue() << endl;
     cout << "Time : " << om->getElapsedTime() << endl;
-
 
     // initilizing benchmark
 //    Benchmark bm(instFolder, optMethods);

@@ -26,7 +26,7 @@ bool SwapLS::firstImprovement(Solution &sol)
 
 bool SwapLS::firstImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
 {
-    bool improv = false;
+    bool improve = false;
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots() - 1; slotA++) {
         for (unsigned slotB = unsigned(sol.getNumOfSlots() - 1); !sol.sameTardAcc(slotA, slotB); slotB--) {
             int swapGain = sol.swapGain(slotA, slotB);
@@ -37,13 +37,28 @@ bool SwapLS::firstImprovement(Solution &sol, vector<vector<unsigned int> > &pena
 
             if(swapGain < 0) {
                 sol.swap(slotA, slotB);
-                improv = true;
+                improve = true;
+            }
+        }
+    }
+    return improve;
+
+
+}
+
+bool SwapLS::firstImprovement(Solution &sol, Tabu *tabu)
+{
+    bool improv = false;
+    for (unsigned slotA = 0; slotA < sol.getNumOfSlots() - 1; slotA++) {
+        for (unsigned slotB = unsigned(sol.getNumOfSlots() - 1); !sol.sameTardAcc(slotA, slotB); slotB--) {
+            if(sol.swapGain(slotA, slotB) < 0) {
+                sol.swap(slotA, slotB);
+                if (!tabu->contains(sol))
+                    improv = true;
             }
         }
     }
     return improv;
-
-
 }
 
 bool SwapLS::bestImprovement(Solution &sol)
@@ -74,5 +89,10 @@ bool SwapLS::bestImprovement(Solution &sol)
 
 bool SwapLS::bestImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
 {
+    return false;
+}
 
+bool SwapLS::bestImprovement(Solution &sol, Tabu *tabu)
+{
+    return false;
 }

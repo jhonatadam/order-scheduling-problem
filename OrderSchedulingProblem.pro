@@ -5,6 +5,8 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     benchmark.cpp \
+    metaheuristics/dea.cpp \
+    metaheuristics/geneticalgorithm.cpp \
     metaheuristics/grasp.cpp \
     metaheuristics/guidedlocalsearch.cpp \
     metaheuristics/hillclimbing.cpp \
@@ -14,16 +16,23 @@ SOURCES += main.cpp \
     localsearchs/localsearch.cpp \
     heuristics/minduedateheuristic.cpp \
     metaheuristics/penalizedvnd.cpp \
+    metaheuristics/scattersearch.cpp \
+    metaheuristics/tabusearch.cpp \
+    metaheuristics/tabuvnd.cpp \
     optimizationmethod.cpp \
     metaheuristics/randommultistart.cpp \
+    metaheuristics/simulatedannealing.cpp \
     solution.cpp \
     localsearchs/swapls.cpp \
     localsearchs/shiftls.cpp \
     metaheuristics/variableneighborhooddescendant.cpp \
-    metaheuristics/variableneighborhoodsearch.cpp
+    metaheuristics/variableneighborhoodsearch.cpp \
+    tabu.cpp
 
 HEADERS += \
     benchmark.h \
+    metaheuristics/dea.h \
+    metaheuristics/geneticalgorithm.h \
     metaheuristics/grasp.h \
     metaheuristics/guidedlocalsearch.h \
     metaheuristics/hillclimbing.h \
@@ -33,13 +42,18 @@ HEADERS += \
     localsearchs/localsearch.h \
     heuristics/minduedateheuristic.h \
     metaheuristics/penalizedvnd.h \
+    metaheuristics/scattersearch.h \
+    metaheuristics/tabusearch.h \
+    metaheuristics/tabuvnd.h \
     optimizationmethod.h \
     metaheuristics/randommultistart.h \
+    metaheuristics/simulatedannealing.h \
     solution.h \
     localsearchs/swapls.h \
     localsearchs/shiftls.h \
     metaheuristics/variableneighborhooddescendant.h \
-    metaheuristics/variableneighborhoodsearch.h
+    metaheuristics/variableneighborhoodsearch.h \
+    tabu.h
 
 DISTFILES += \
     instances/upper_bounds_BIG.xlsx \

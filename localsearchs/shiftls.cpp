@@ -5,6 +5,11 @@ ShiftLS::ShiftLS()
 
 }
 
+ShiftLS::~ShiftLS()
+{
+
+}
+
 bool ShiftLS::firstImprovement(Solution &sol)
 {
     unsigned bestValue = sol.getValue();
@@ -16,9 +21,9 @@ bool ShiftLS::firstImprovement(Solution &sol)
 
         for (unsigned slotB = begin; slotB < sol.getNumOfSlots(); slotB++) {
             unsigned newValue = sol.getValue();
-
-            if(newValue < bestValue)
+            if(newValue < bestValue) {
                 return true;
+            }
 
             if ((slotB + 1) < sol.getNumOfSlots())
                 sol.swap(slotB, slotB + 1);
@@ -32,7 +37,39 @@ bool ShiftLS::firstImprovement(Solution &sol)
 
 bool ShiftLS::firstImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
 {
-    unsigned bestValue = sol.getValue();
+    unsigned firstLate = sol.getFirstLate();
+    // solution evaluation
+    unsigned bestEvaluation = sol.getValue();
+    for (unsigned slot = 0; slot < sol.getNumOfSlots(); slot++)
+        bestEvaluation += penalities[sol.getOrder(slot)][slot];
+
+    for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
+        unsigned begin = (slotA < firstLate ? firstLate : 0);
+        sol.shift(slotA, begin);
+
+        for (unsigned slotB = begin; slotB < sol.getNumOfSlots(); slotB++) {
+            // new solution evaluation
+            unsigned newEvaluation = sol.getValue();
+            for (unsigned slot = 0; slot < sol.getNumOfSlots(); slot++)
+                newEvaluation += penalities[sol.getOrder(slot)][slot];
+
+            if(newEvaluation < bestEvaluation) {
+                return true;
+            }
+
+            if ((slotB + 1) < sol.getNumOfSlots())
+                sol.swap(slotB, slotB + 1);
+        }
+
+        sol.shift(sol.getNumOfSlots() - 1, slotA);
+    }
+
+    return false;
+}
+
+bool ShiftLS::firstImprovement(Solution &sol, Tabu *tabu)
+{
+    unsigned initValue = sol.getValue();
     unsigned firstLate = sol.getFirstLate();
 
     for (unsigned slotA = 0; slotA < sol.getNumOfSlots(); slotA++) {
@@ -40,10 +77,9 @@ bool ShiftLS::firstImprovement(Solution &sol, vector<vector<unsigned int> > &pen
         sol.shift(slotA, begin);
 
         for (unsigned slotB = begin; slotB < sol.getNumOfSlots(); slotB++) {
-            unsigned newValue = sol.getValue();
-
-            if(newValue < bestValue)
+            if((sol.getValue() < initValue) && !tabu->contains(sol)) {
                 return true;
+            }
 
             if ((slotB + 1) < sol.getNumOfSlots())
                 sol.swap(slotB, slotB + 1);
@@ -89,5 +125,10 @@ bool ShiftLS::bestImprovement(Solution &sol)
 
 bool ShiftLS::bestImprovement(Solution &sol, vector<vector<unsigned int> > &penalities)
 {
-    return true;
+    return false;
+}
+
+bool ShiftLS::bestImprovement(Solution &sol, Tabu *tabu)
+{
+    return false;
 }

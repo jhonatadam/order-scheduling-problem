@@ -4,6 +4,7 @@
 #include <chrono>
 #include <algorithm>
 #include <random>
+#include <cmath>
 
 #include <instance.h>
 
@@ -47,6 +48,7 @@ public:
     int shiftGain(size_t from, size_t to);
     // shuffle current scheduling
     void shuffle();
+    void shuffle(default_random_engine &gen);
     // copy scheduling of other solution to the same instance
     void copy(const Solution &other);
     // copy a given scheduling
@@ -66,12 +68,17 @@ public:
     size_t getNumOfSlots() const;
     const Instance *getInstance() const;
     unsigned getOrder(size_t slot);
+    unsigned getTardAcc(size_t slot);
     unsigned getSlot(size_t order);
     unsigned getFirstLate();
 
     // setters
     void setInstance(const Instance *instance);
     const vector<unsigned>& getScheduling();
+
+
+    bool operator<(Solution &other);
+    bool operator==(Solution &other);
 };
 
 #endif // SOLUTION_H

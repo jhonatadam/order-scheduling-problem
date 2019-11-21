@@ -11,6 +11,23 @@ const vector<unsigned>& Solution::getScheduling()
     return scheduling;
 }
 
+bool Solution::operator<(Solution &other)
+{
+    return this->getValue() < other.getValue();
+}
+
+bool Solution::operator==(Solution &other)
+{
+    if (this->getNumOfSlots() != other.getNumOfSlots())
+        return false;
+
+    for (size_t slot = 0; slot < this->getNumOfSlots(); slot++)
+        if (this->scheduling[slot] != other.scheduling[slot])
+            return false;
+
+    return true;
+}
+
 void Solution::_swap(size_t slotA, size_t slotB)
 {
     unsigned aux = scheduling[slotA];
@@ -66,39 +83,39 @@ void Solution::updateValue(size_t begin, size_t end)
 
 int Solution::valueGain(size_t begin, size_t end)
 {
-    tempAcc = 0;
-    if (instance->numberOfMachines != tempTimeAcc.size())
-        tempTimeAcc.resize(instance->numberOfMachines);
-    fill(tempTimeAcc.begin(), tempTimeAcc.end(), 0);
+    unsigned tardAcc;
+    unsigned maxTardAcc = 0;
+    unsigned endTime;
+    vector<unsigned> maxEndTime(end - begin + 1, 0);
+    for (size_t machine = 0; machine < instance->numberOfMachines; machine++) {
+        tardAcc = begin > 0 ? tardinessAcc[begin - 1] : 0;
+        endTime = begin > 0 ? timeAcc[begin - 1][machine] : 0;
+        for (size_t slot = begin; slot <= end; slot++) {
+            endTime += instance->orderMachine[scheduling[slot]][machine];
+            size_t maxEndTimeIdx = slot - begin;
 
-    if (begin > 0) {
-        tempAcc = tardinessAcc[begin - 1];
-        for (size_t machine = 0; machine < instance->numberOfMachines; machine++)
-            tempTimeAcc[machine] = timeAcc[begin - 1][machine];
-    }
+            if (endTime > maxEndTime[maxEndTimeIdx])
+                maxEndTime[maxEndTimeIdx] = endTime;
 
-    for (size_t slot = begin; slot <= end; slot++) {
-        unsigned order = scheduling[slot];
-        unsigned maxTime = 0;
-        for (size_t machine = 0; machine < instance->numberOfMachines; machine++) {
-            tempTimeAcc[machine] += instance->orderMachine[order][machine];
+            if (maxEndTime[maxEndTimeIdx] > instance->dueDates[scheduling[slot]])
+                tardAcc += maxEndTime[maxEndTimeIdx] - instance->dueDates[scheduling[slot]];
 
-            if (tempTimeAcc[machine] > maxTime)
-                maxTime = tempTimeAcc[machine];
+            if (tardAcc > tardinessAcc[end])
+                return int(tardAcc) - int(tardinessAcc[end]);
         }
-        // updating accumulated tardiness
-        if (maxTime > instance->dueDates[order])
-            tempAcc += maxTime - instance->dueDates[order];
+
+        if (tardAcc > maxTardAcc) {
+            maxTardAcc = tardAcc;
+        }
     }
 
-    return int(tempAcc) - int(tardinessAcc[end]);
+    return int(maxTardAcc) - int(tardinessAcc[end]);
 }
 
 void Solution::swap(size_t slotA, size_t slotB)
 {
     if (slotA == slotB)
         return;
-
     this->_swap(slotA, slotB);
 
     updateValue(min(slotA, slotB), max(slotA, slotB));
@@ -141,8 +158,14 @@ int Solution::shiftGain(size_t from, size_t to)
 void Solution::shuffle()
 {
     long seed = 0; // std::chrono::system_clock::now().time_since_epoch().count();
-    std::shuffle(scheduling.begin(), scheduling.end(), std::default_random_engine(seed));
+    std::shuffle(scheduling.begin(), scheduling.end(), default_random_engine(seed));
 
+    updateValue(0, instance->numberOfOrders - 1);
+}
+
+void Solution::shuffle(default_random_engine &gen)
+{
+    std::shuffle(scheduling.begin(), scheduling.end(), gen);
     updateValue(0, instance->numberOfOrders - 1);
 }
 
@@ -195,7 +218,7 @@ void Solution::perturbByShift(size_t numberOfShifts)
     long seed = 0; // chrono::system_clock::now().time_since_epoch().count();
     default_random_engine randGenerator(seed);
     // uniform distribution between 0 and swapsPerPerturb
-    std::uniform_int_distribution<size_t> randDistribution(0, instance->numberOfOrders - 1);
+    uniform_int_distribution<size_t> randDistribution(0, instance->numberOfOrders - 1);
 
     size_t minSlot = instance->numberOfOrders - 1;
     size_t maxSlot = 0;
@@ -256,6 +279,11 @@ const Instance* Solution::getInstance() const
 unsigned Solution::getOrder(size_t slot)
 {
     return this->scheduling[slot];
+}
+
+unsigned Solution::getTardAcc(size_t slot)
+{
+    return this->tardinessAcc[slot];
 }
 
 unsigned Solution::getSlot(size_t order)

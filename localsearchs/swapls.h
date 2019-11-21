@@ -11,8 +11,10 @@ public:
 
     bool firstImprovement(Solution &sol) override;
     bool firstImprovement(Solution &sol, vector<vector<unsigned int> > &penalities) override;
+    bool firstImprovement(Solution &sol, Tabu *tabu) override;
     bool bestImprovement(Solution &sol) override;
     bool bestImprovement(Solution &sol, vector<vector<unsigned int> > &penalities) override;
+    bool bestImprovement(Solution &sol, Tabu *tabu) override;
 };
 
 #endif // SWAPLS_H
